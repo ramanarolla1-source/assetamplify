@@ -1,1 +1,151 @@
-
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://assetamplify.example/schemas/financial-state.schema.json",
+  "title": "AssetAmplify Financial State",
+  "description": "Schema for an authenticated, versioned representation of the current state of an eligible financial instrument.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "instrument",
+    "financial_state",
+    "authentication",
+    "provenance"
+  ],
+  "properties": {
+    "instrument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instrument_id",
+        "instrument_type",
+        "issuing_institution",
+        "applicant",
+        "beneficiary"
+      ],
+      "properties": {
+        "instrument_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "instrument_type": {
+          "type": "string",
+          "enum": [
+            "BG",
+            "LC",
+            "SBLC"
+          ]
+        },
+        "issuing_institution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applicant": {
+          "type": "string",
+          "minLength": 1
+        },
+        "beneficiary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "financial_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "amount",
+        "currency",
+        "status",
+        "issue_date",
+        "expiry_date",
+        "state_version"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "issue_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "expiry_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "state_version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "source_type",
+        "source_reference",
+        "authenticated_at"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "BANK_AUTHENTICATED",
+            "PENDING",
+            "NOT_AUTHENTICATED"
+          ]
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "INSTITUTIONAL_API",
+            "INSTITUTIONAL_CHANNEL",
+            "OTHER_AUTHORISED_SOURCE"
+          ]
+        },
+        "source_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authenticated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "previous_state_version",
+        "state_event"
+      ],
+      "properties": {
+        "previous_state_version": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "state_event": {
+          "type": "string",
+          "minLength": 1
+        },
+        "change_reason": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
