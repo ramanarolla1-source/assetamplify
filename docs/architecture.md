@@ -479,10 +479,4 @@ It explores how established financial relationships can gain a programmable digi
 This gives us a solid canonical product definition. The next document, `architecture.md`, can then focus strictly on **system components, data flow, authority boundaries, Solana, Arcium, APIs, state transitions and reconciliation**, without repeatedly redefining the product.
 ```
 
-ACTIVE
-      ↓
-Authorised institutional update
-      ↓
-BG — Version 2
-₹70 Cr
-ACTIVE
+
