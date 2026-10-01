@@ -395,49 +395,54 @@ Action
 Only authorised actors should be able to initiate relevant financial-state transitions.
 
 ---
-
-## 10. Current Scope and Research-Driven Development
+ ## 10. Current Scope and Research-Driven Development
 
 AssetAmplify is being developed as a research-driven technical product.
 
-The repository follows:
+The initial stage of the product is designed around **Bank Guarantees (BGs)** as
+the first financial instrument module.
+
+BG provides the initial use case through which AssetAmplify explores:
+
+- bank-authenticated financial state;
+- lifecycle-aware state representation;
+- programmable financial assets;
+- capability assessment;
+- authorised financial and business workflows;
+- state changes and revalidation.
+
+The architecture is intentionally designed to extend beyond Bank Guarantees.
+**Letters of Credit (LCs), Standby Letters of Credit (SBLCs), and potentially
+other bank-verified financial instruments may be introduced as subsequent
+instrument modules.**
+
+However, these instruments will not be treated as interchangeable with a BG.
+
+Each instrument will be evaluated and implemented according to its own:
+
+- terms and conditions;
+- legal and commercial characteristics;
+- lifecycle;
+- applicable rules and documentation;
+- verification requirements;
+- availability of reliable institutional data;
+- authorised use cases.
+
+Accordingly, the extension from BG to LC or SBLC is not simply a matter of
+changing the instrument name. Each module will require its own state model,
+lifecycle rules and applicable business logic.
+
+The architecture therefore follows:
 
 ```text
-Research
-   ↓
-Observation
-   ↓
-Product Insight
-   ↓
-Architecture Decision
-   ↓
-Technical Artifact
-```
-
-The initial instrument focus is the **Bank Guarantee**.
-
-BG is the first instrument module — not the boundary of the architecture.
-
-Future instrument modules may explore:
-
-* Letters of Credit;
-* Standby Letters of Credit;
-* other bank-verified financial instruments.
-
-Each instrument will require its own lifecycle and business rules rather than assuming that every financial instrument behaves identically.
-
-The repository therefore evolves incrementally through:
-
-* product documentation;
-* architecture decisions;
-* financial-state examples;
-* schemas;
-* research updates;
-* technical implementations.
-
-See [`CHANGELOG.md`](CHANGELOG.md) for the chronological record of repository development.
-
----
+Financial State Core
+        ↓
+Instrument-Specific Modules
+        ↓
+BG → Initial Module
+LC → Future Module
+SBLC → Future Module
+Other Eligible Instruments → Subject to Research
 
 ## 11. Long-Term Direction
 
