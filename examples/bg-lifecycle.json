@@ -1,1 +1,36 @@
-
+{
+  "instrument_id": "AA-DEMO-BG-001",
+  "instrument_type": "BG",
+  "lifecycle": [
+    {
+      "state": "REQUESTED",
+      "state_version": 0
+    },
+    {
+      "state": "ISSUED",
+      "state_version": 1
+    },
+    {
+      "state": "BANK_VERIFIED",
+      "state_version": 1
+    },
+    {
+      "state": "ACTIVE",
+      "state_version": 1
+    },
+    {
+      "state": "REDUCED",
+      "state_version": 2,
+      "amount": 700000000,
+      "currency": "INR"
+    },
+    {
+      "state": "EXTENDED",
+      "state_version": 3
+    },
+    {
+      "state": "CANCELLED",
+      "state_version": 4
+    }
+  ]
+}
