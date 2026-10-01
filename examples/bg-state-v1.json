@@ -1,1 +1,27 @@
-
+{
+  "instrument": {
+    "instrument_id": "AA-DEMO-BG-001",
+    "instrument_type": "BG",
+    "issuing_institution": "Example Bank Ltd.",
+    "applicant": "Example Infrastructure Pvt. Ltd.",
+    "beneficiary": "Example Projects Ltd."
+  },
+  "financial_state": {
+    "amount": 1000000000,
+    "currency": "INR",
+    "status": "ACTIVE",
+    "issue_date": "2026-01-15",
+    "expiry_date": "2027-01-14",
+    "state_version": 1
+  },
+  "authentication": {
+    "status": "BANK_AUTHENTICATED",
+    "source_type": "INSTITUTIONAL_API",
+    "source_reference": "BANK-REF-001",
+    "authenticated_at": "2026-10-01T10:00:00Z"
+  },
+  "provenance": {
+    "previous_state_version": null,
+    "state_event": "ISSUED"
+  }
+}
