@@ -1,266 +1,576 @@
-# AssetAmplify — Product
+# AssetAmplify — Architecture
 
-## 1. Product Definition
+## 1. Architecture Overview
 
-AssetAmplify is financial infrastructure designed to make existing, authenticated business financial credibility more usable through programmable digital infrastructure.
+AssetAmplify is designed as a programmable financial-state infrastructure layer around existing institutional financial systems.
 
-The product begins with financial instruments already issued through established financial institutions, with **Bank Guarantees (BGs) as the initial instrument module**.
+The architecture does not attempt to replace the issuing bank, lender, payment infrastructure or underlying financial instrument.
 
-The core product transformation is:
+Instead, it connects authenticated institutional financial state with programmable digital infrastructure.
 
-Bank-Issued Instrument  
-→ Bank Authentication  
-→ Financial State  
-→ Programmable Financial Asset  
-→ Authorised Business Utility
+The high-level architecture is:
 
-AssetAmplify does not replace the underlying financial instrument, the issuing bank, the lender, or existing fiat payment infrastructure.
+```text
+┌─────────────────────────────────────────────┐
+│        Institutional Financial Reality      │
+│                                             │
+│  Bank-issued BG / LC / other instrument    │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│       Bank Authentication / API Layer       │
+│                                             │
+│  Authorised status, lifecycle and updates   │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│             Financial State Layer           │
+│                                             │
+│  Current state + version + provenance      │
+└──────────────────────┬──────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────┐
+│        Solana Programmable State Layer      │
+│                                             │
+│  State accounts + authorised transitions   │
+│  Controlled programmable asset              │
+└──────────────────────┬──────────────────────┘
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+┌──────────────────────┐ ┌──────────────────────┐
+│ Confidential         │ │ Business / Financial │
+│ Computation          │ │ Workflows            │
+│                      │ │                      │
+│ Arcium               │ │ Capability           │
+│ Private inputs       │ │ Verification         │
+│ Confidential results │ │ Financing            │
+└──────────────────────┘ │ Trade / Procurement  │
+                         │ Enterprise workflows │
+                         └──────────────────────┘
+````
 
-It creates a programmable layer around authenticated financial state.
+The core architectural principle is:
+
+> **Banks authenticate financial reality. AssetAmplify makes that authenticated state programmable.**
 
 ---
 
-## 2. Product Thesis
+## 2. Source of Truth and Trust Boundaries
 
-Businesses already possess financial credibility through banking relationships and financial instruments.
+AssetAmplify separates the underlying financial reality from its programmable representation.
 
-The product thesis is:
+The trust hierarchy is:
 
-> **Existing financial credibility can become more useful when its authenticated state is represented in a controlled, programmable form.**
+```text
+Underlying Financial Instrument
+            ↓
+Issuing Institution
+            ↓
+Bank Authentication
+            ↓
+Financial State
+            ↓
+Solana Programmable State
+            ↓
+Applications and Workflows
+```
 
-AssetAmplify therefore starts with financial credibility that already exists rather than requiring a business to first acquire crypto assets or become a crypto-native participant.
+The issuing institution remains authoritative for the underlying instrument.
 
-The objective is not simply to tokenize a financial instrument.
+Blockchain state does not independently establish:
 
-The objective is to make its **authenticated financial state usable within authorised digital financial and commercial workflows**.
+* whether a BG legally exists;
+* whether an LC is legally operative;
+* whether an instrument has been amended by the issuing bank;
+* whether an instrument has been invoked;
+* whether an obligation is legally enforceable.
+
+Those matters depend on the relevant institutional and legal framework.
+
+The blockchain provides a programmable representation of authenticated state.
 
 ---
 
-## 3. The Financial Instrument
+## 3. System Actors
 
-A financial instrument is the underlying institutional commitment issued or maintained through an authorised financial institution.
+AssetAmplify involves multiple actors with different responsibilities.
 
-The initial AssetAmplify instrument is the **Bank Guarantee (BG)**.
+### Issuing Bank
 
-The underlying instrument remains governed by:
+The issuing bank or relevant financial institution is authoritative for the underlying financial instrument.
 
-- its issuing bank;
-- applicable terms and conditions;
-- contractual relationships;
-- applicable legal and regulatory requirements;
-- its institutional lifecycle.
+It may provide authorised information relating to:
 
-AssetAmplify does not change the underlying instrument merely by creating a programmable representation of its authenticated state.
+* issuance;
+* current status;
+* amendments;
+* reductions;
+* extensions;
+* invocation;
+* claims;
+* cancellation;
+* closure;
+* expiry;
+* other applicable lifecycle events.
 
-### Initial and Future Instrument Modules
+### Business / Applicant
 
-The initial stage of the product is designed around **Bank Guarantees**.
+The business associated with the underlying instrument can initiate authorised workflows and requests.
 
-Additional instruments may be introduced subsequently, including:
+Examples include:
 
-- Letters of Credit (LCs);
-- Standby Letters of Credit (SBLCs);
-- other eligible bank-verified financial instruments.
+* verification;
+* financing requests;
+* commercial workflows;
+* allocation requests;
+* enterprise integrations.
 
-These instruments will not automatically be treated as interchangeable.
+### Beneficiary / Counterparty
 
-Each future instrument will be evaluated according to its:
+A beneficiary or authorised counterparty may receive or verify relevant information according to the permissions of the workflow.
 
-- terms and conditions;
-- legal and commercial characteristics;
-- lifecycle;
-- applicable rules;
-- verification requirements;
-- availability of reliable institutional data;
-- authorised business use cases.
+### Lender
+
+A lender independently evaluates financing requests.
+
+AssetAmplify does not automatically determine that a business should receive financing.
+
+### AssetAmplify Infrastructure
+
+The product coordinates:
+
+* financial-state representation;
+* permissions;
+* workflow orchestration;
+* state transitions;
+* provenance;
+* reconciliation;
+* revalidation.
+
+### Arcium
+
+Arcium can provide confidential computation where capability or eligibility calculations require protected inputs.
+
+### Solana
+
+Solana provides the programmable state layer for authorised state representation and transitions.
+
+---
+
+## 4. Authority Model
+
+A wallet address alone does not establish institutional authority.
+
+The architecture therefore separates:
+
+```text
+Institution
+    ↓
+Role
+    ↓
+Permissions
+    ↓
+Credential / Authorised Account
+    ↓
+Action
+```
+
+Examples:
+
+```text
+Issuing Bank
+    ↓
+Issuer
+    ↓
+Update Financial State
+    ↓
+Authorised institutional credential
+```
+
+```text
+Lender
+    ↓
+Financing Institution
+    ↓
+Create / update approved facility
+    ↓
+Authorised lender credential
+```
+
+```text
+Business
+    ↓
+Applicant
+    ↓
+Request assessment / initiate workflow
+    ↓
+Authorised business credential
+```
+
+This separation is important because financial-state transitions should be performed only by actors authorised to perform them.
+
+---
+
+## 5. Financial State Layer
+
+The Financial State layer is the bridge between institutional financial reality and programmable infrastructure.
+
+A state record can conceptually contain:
+
+```text
+Instrument ID
+Instrument Type
+Issuing Institution
+Applicant
+Beneficiary
+Amount
+Currency
+Issue Date
+Expiry Date
+Status
+Amendments
+Verification Status
+State Version
+Timestamp
+Conditions
+Source / Reference
+```
+
+The exact schema can evolve as implementation proceeds.
+
+The important architectural properties are:
+
+* authenticated;
+* structured;
+* versioned;
+* traceable;
+* lifecycle-aware.
+
+The state should represent the **current known institutional position**, while historical versions preserve how that position changed.
+
+---
+
+## 6. State Versioning
+
+Financial state is versioned so that downstream workflows can identify which institutional state was used for an action.
+
+For example:
+
+```text
+BG V1
+₹100 Cr
+ACTIVE
+       ↓
+Capability Assessment
+       ↓
+Facility Established
+       ↓
+Bank Amendment
+       ↓
+BG V2
+₹70 Cr
+ACTIVE
+```
+
+The capability or facility can therefore retain a reference to the state version from which it originated.
+
+A simplified relationship is:
+
+```text
+Capability
+    ↓
+Assessment State Version
+    ↓
+Financial State V1
+    ↓
+Bank Authentication
+    ↓
+Underlying Instrument
+```
+
+When the current state becomes V2, the system can determine whether the earlier capability or facility requires revalidation.
+
+This prevents a critical architectural problem:
+
+> **A financial decision should not silently remain based on an outdated institutional state.**
+
+---
+
+## 7. Instrument-Specific Modules
+
+AssetAmplify uses a common Financial State foundation with instrument-specific modules.
+
+The initial module is:
+
+```text
+Bank Guarantee
+```
+
+Future modules may include:
+
+```text
+Letter of Credit
+Standby Letter of Credit
+Other Eligible Financial Instruments
+```
+
+The architecture does not assume that all instruments have the same lifecycle.
+
+Instead:
+
+```text
+                 Financial State Core
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+          ▼              ▼              ▼
+         BG             LC             SBLC
+      Lifecycle      Lifecycle       Lifecycle
+      Rules          Rules           Rules
+```
+
+Each module can define:
+
+* instrument-specific states;
+* lifecycle transitions;
+* verification requirements;
+* relevant conditions;
+* business rules;
+* data requirements.
+
+This allows the infrastructure to remain reusable without incorrectly standardising distinct financial instruments.
+
+---
+
+## 8. Bank and Institutional Integration
+
+AssetAmplify is designed to consume authorised institutional information rather than treating the blockchain as the source of financial truth.
+
+Conceptually:
+
+```text
+Issuing Bank
+     │
+     │ Authorised API / Institutional Channel
+     ▼
+Integration Layer
+     │
+     ▼
+Financial State Service
+     │
+     ├── State validation
+     ├── Versioning
+     ├── Provenance
+     └── Reconciliation
+     │
+     ▼
+Solana
+```
+
+Institutional infrastructure may expose different levels of data and functionality.
+
+Therefore, the architecture does not assume that every bank provides identical APIs or lifecycle information.
+
+Where a recognised institutional e-BG or API infrastructure provides authorised lifecycle information, AssetAmplify can use that type of information as an integration model.
+
+The bank remains authoritative.
+
+---
+
+## 9. Solana's Role
+
+Solana is intended to provide the programmable state layer.
+
+Its role includes:
+
+* maintaining programmable financial-state accounts;
+* enforcing authorised state transitions;
+* maintaining relationships between state and dependent records;
+* supporting controlled digital asset representations;
+* emitting state-change events;
+* enabling application composability.
+
+Conceptually:
+
+```text
+Financial State Program
+        ↓
+Business logic
+        ↓
+Authorised transitions
+        ↓
+Programmable Financial Asset
+```
+
+The programmable asset is not intended to be an unrestricted transferable token.
+
+Transferability, permissions and other behaviour must be explicitly defined according to the relevant financial and commercial workflow.
+
+---
+
+## 10. Token Representation
+
+Where tokenisation is used, the token represents a controlled digital relationship with authenticated financial state.
+
+It should not automatically be interpreted as:
+
+* ownership of the underlying BG;
+* assignment of the bank's obligation;
+* unrestricted collateral;
+* freely transferable financial value;
+* legal substitution for the underlying instrument.
+
+The implementation can use Solana's Token-2022 framework where appropriate.
+
+The exact extension set and transfer controls will be determined during implementation based on the required financial-state and permission model.
+
+The architectural distinction is:
+
+```text
+Financial State Program
+        ↓
+State and business logic
+
+Token Representation
+        ↓
+Controlled digital representation
+```
+
+---
+
+## 11. Confidential Computation
+
+Some financial decisions require information that should not become public blockchain data.
+
+Examples include:
+
+* internal lender limits;
+* other financial exposures;
+* confidential eligibility parameters;
+* private KYC/KYB information;
+* sensitive commercial information.
+
+AssetAmplify therefore separates public programmable state from confidential computation.
+
+Conceptually:
+
+```text
+Public / Authorised State
+        │
+        ├───────────────┐
+        │               │
+        ▼               ▼
+   Solana State     Private Inputs
+                        │
+                        ▼
+               Arcium Confidential
+                  Computation
+                        │
+                        ▼
+               Confidential Result
+                        │
+                        ▼
+                 Authorised State
+```
+
+Arcium is responsible for confidential computation.
+
+It is not responsible for establishing the truth of the underlying financial instrument.
+
+---
+
+## 12. Backend and Orchestration
+
+The backend coordinates offchain processes that should not be forced into a blockchain program.
+
+Potential responsibilities include:
+
+* institutional API integration;
+* authentication;
+* data normalisation;
+* state comparison;
+* event processing;
+* reconciliation;
+* workflow orchestration;
+* notifications;
+* monitoring;
+* enterprise integration;
+* audit support.
+
+The blockchain should enforce deterministic financial-state rules, while offchain infrastructure handles integration and operational complexity.
+
+This creates a separation between:
+
+```text
+Onchain
+→ Programmable state and authorised transitions
+
+Offchain
+→ Institutional integration, orchestration and reconciliation
+```
+
+---
+
+## 13. Events, Accounts and Reconciliation
+
+AssetAmplify follows a simple observability principle:
+
+> **Use events for speed, accounts for state, and reconciliation for reliability.**
+
+### Events
+
+Events indicate that something may have changed.
+
+They are useful for:
+
+* triggering workflows;
+* notifications;
+* monitoring;
+* downstream processing.
+
+### Accounts
+
+Accounts represent the current programmable state.
+
+They should be treated as the authoritative current state of the AssetAmplify onchain layer.
+
+### Reconciliation
+
+Reconciliation compares the relevant layers and resolves differences.
+
+Conceptually:
+
+```text
+Event
+  ↓
+"Something may have changed"
+  ↓
+Read current state
+  ↓
+Compare with institutional source
+  ↓
+Validate
+  ↓
+Update / reconcile
+  ↓
+New Financial State Version
+```
 
 Therefore:
 
-> **The Financial State architecture is reusable, but instrument-specific lifecycle and business logic must remain distinct.**
+> **WebSocket tells us that something may have changed. RPC tells us what the current onchain state is. The backend reconciles the programmable state with the authorised institutional state.**
 
 ---
 
-## 4. Financial State
+## 14. Financial Provenance
 
-A **Financial State** is a structured representation of the current, authenticated condition of a financial instrument at a particular point in time.
+Financial provenance connects downstream financial actions to the state from which they originated.
 
-For an initial BG implementation, the state may include:
-
-- instrument identifier;
-- instrument type;
-- issuing institution;
-- applicant;
-- beneficiary;
-- amount;
-- currency;
-- issue date;
-- expiry date;
-- current status;
-- amendments;
-- verification status;
-- state version;
-- timestamp;
-- relevant conditions.
-
-The Financial State is **dynamic and versioned**.
-
-For example:
-
-```text
-BG — Version 1
-₹100 Cr
-ACTIVE
-      ↓
-Authorised institutional update
-      ↓
-BG — Version 2
-₹70 Cr
-ACTIVE
-````
-
-The purpose of versioning is to preserve the relationship between:
-
-* the current state;
-* previous states;
-* the underlying instrument;
-* actions taken using a particular state;
-* subsequent changes.
-
-The issuing institution remains authoritative for the underlying financial reality.
-
----
-
-## 5. Programmable Financial Asset
-
-A **Programmable Financial Asset** is a controlled digital representation of authenticated financial state that can be referenced, updated and used within authorised financial and business workflows according to defined rules and conditions.
-
-It is not:
-
-* the original Bank Guarantee;
-* cash or a cash equivalent;
-* automatically approved credit;
-* unrestricted collateral;
-* an unrestricted transferable crypto asset;
-* a replacement for the issuing bank.
-
-The programmable asset represents financial state and enables controlled interaction with that state.
-
-Programmability may include:
-
-* authorised state transitions;
-* controlled permissions;
-* verification;
-* provenance;
-* capability workflows;
-* facility relationships;
-* event-driven updates;
-* revalidation.
-
----
-
-## 6. Financial Allocation
-
-A **Financial Allocation** is a controlled portion of a verified financial instrument that an authorised institution permits to be considered for a defined financial purpose.
-
-Allocation is not the same as face value.
-
-For example:
-
-```text
-Underlying BG
-₹100 Cr
-      ↓
-Defined Allocation
-₹X Cr
-      ↓
-Specific authorised purpose
-```
-
-The allocation must be governed by applicable institutional and contractual conditions.
-
-Multiple allocations may require controls to prevent:
-
-* double allocation;
-* allocation beyond permitted limits;
-* reuse of the same financial capacity for incompatible purposes.
-
-Allocation does not by itself create a loan.
-
----
-
-## 7. Financial Capability
-
-A **Financial Capability** is financial capacity freshly determined in response to an authorised request, based on the current verified state and other applicable parameters.
-
-The capability assessment may consider:
-
-* current financial state;
-* applicable allocations;
-* existing obligations;
-* eligibility conditions;
-* institutional limits;
-* private financial information;
-* other lender-specific parameters.
-
-The flow is:
-
-```text
-Verified Financial State
-        ↓
-Authorised Request
-        ↓
-Fresh Assessment
-        ↓
-Financial Capability
-        ↓
-Lender Decision
-```
-
-Face value does not automatically determine capability.
-
-For example, a ₹100 Cr BG does not automatically produce a ₹100 Cr financing facility.
-
-Capability is an assessment output, not a guarantee of financing.
-
----
-
-## 8. Financial Obligation
-
-A **Financial Obligation** is the actual enforceable financial commitment established after an authorised institution approves or establishes a facility or other financial arrangement.
-
-The distinction is important:
-
-```text
-Financial Instrument
-        ↓
-Financial State
-        ↓
-Allocation
-        ↓
-Capability Assessment
-        ↓
-Lender Decision
-        ↓
-Financial Obligation
-        ↓
-Utilisation / Repayment
-```
-
-The resulting obligation is separate from the original BG or other underlying instrument.
-
-Repayment reduces the outstanding obligation.
-
-Repayment does not recreate or automatically restore the original financial capability.
-
-Likewise, use of a programmable representation does not automatically transfer, cancel, invoke or otherwise alter the underlying bank instrument.
-
----
-
-## 9. Financial Provenance
-
-**Financial Provenance** describes the traceable relationship between a financial action or obligation and the verified financial state from which the relevant capability or workflow originated.
-
-A simplified provenance chain is:
+A simplified chain is:
 
 ```text
 Financial Obligation
@@ -271,28 +581,79 @@ Capability
         ↑
 Allocation
         ↑
-Verified Financial State
+Financial State
         ↑
 Bank Authentication
         ↑
 Underlying Instrument
-        ↑
-Issuing Institution
 ```
+
+A facility can therefore reference:
+
+* the capability assessment;
+* the Financial State version;
+* the relevant allocation;
+* the underlying instrument identifier.
+
+This enables a downstream user or authorised institution to understand the origin of a financial decision.
 
 Provenance provides traceability.
 
-It does not by itself establish ownership of the underlying financial instrument.
+It does not by itself establish legal ownership.
 
 ---
 
-## 10. Continuous Revalidation
+## 15. Capability and Obligation Separation
 
-Financial state can change after an asset, capability or facility has been established.
+The architecture deliberately separates capability from actual financial obligation.
 
-AssetAmplify therefore treats revalidation as a core product requirement.
+```text
+Financial State
+      ↓
+Authorised Request
+      ↓
+Capability Assessment
+      ↓
+Lender Decision
+      ↓
+Facility
+      ↓
+Financial Obligation
+      ↓
+Utilisation
+```
 
-Material changes may include:
+A capability is an assessment output.
+
+A facility is an authorised financial arrangement.
+
+An obligation is the actual enforceable commitment.
+
+These should not be represented as the same state or object.
+
+This distinction prevents the system from implying that verification automatically creates credit.
+
+---
+
+## 16. Continuous Revalidation
+
+A downstream financial workflow can depend on a particular Financial State version.
+
+When the underlying instrument changes:
+
+```text
+Current State
+     ↓
+Material Change
+     ↓
+New State Version
+     ↓
+Dependency Check
+     ↓
+Revalidation
+```
+
+Material changes can include:
 
 * reduction;
 * amendment;
@@ -302,181 +663,120 @@ Material changes may include:
 * invocation;
 * claim;
 * payment;
-* settlement;
-* other changes to the underlying institutional state.
+* settlement.
 
-The conceptual flow is:
+Revalidation may result in:
 
 ```text
-Verified State V1
-      ↓
-Capability / Financial Workflow
-      ↓
-Institutional State Changes
-      ↓
-Verified State V2
-      ↓
-Comparison / Reconciliation
-      ↓
-Revalidation
+Continue
+Modify
+Reduce
+Substitute
+Restructure
+Suspend
+Other Contractual Action
 ```
 
-The product does not assume that every state change produces the same outcome.
+The system does not automatically determine the legal or commercial outcome.
 
-Depending on the applicable arrangement, revalidation may result in:
-
-* continuation;
-* modification;
-* reduction;
-* substitution;
-* restructuring;
-* suspension;
-* another contractual or institutional action.
-
-AssetAmplify does not automatically invoke, seize, cancel or transfer the underlying financial instrument merely because its programmable representation is being used.
+That outcome remains subject to the applicable institutional and contractual framework.
 
 ---
 
-## 11. Business Utilities
+## 17. Security Invariants
 
-Programmable financial state can support multiple authorised business workflows.
+The architecture is designed around strict state-transition controls.
 
-### Financing
+A core invariant is:
 
-Financial state can provide an input into fresh lender assessment.
+> **ONLY AUTHORIZED PARTY + CORRECT ACCOUNT + VALID STATE = VALID STATE TRANSITION**
 
-### Trade
-
-Verified financial information can support selected trade and commercial workflows.
-
-### Procurement
-
-Businesses may use authorised financial-state information in supplier qualification or procurement processes.
-
-### Counterparty Verification
-
-A counterparty may verify authorised information about a financial instrument without receiving unrestricted access to underlying confidential information.
-
-### Enterprise Workflows
-
-Financial state can potentially interact with treasury, procurement, ERP and other enterprise systems.
-
-### Onchain Applications
-
-Where appropriate, verified financial state can become an input into authorised blockchain applications.
-
-The product therefore does not depend exclusively on lending demand.
-
-> **A business does not need to borrow to benefit from a programmable financial asset.**
-
----
-
-## 12. Trust and Authority
-
-AssetAmplify separates different forms of authority.
+Additional financial invariants include:
 
 ```text
-Bank
-→ Authenticates underlying financial reality
+Facility Approved ≤ Authorised Capability
 
-AssetAmplify
-→ Coordinates programmable financial state
+Utilised ≤ Approved Facility
 
-Lender
-→ Makes financing decisions
+Outstanding ≤ Applicable Obligation
 
-Business
-→ Initiates authorised commercial actions
+Capability State Version = Assessment State Version
 
-Counterparty
-→ Verifies authorised information
-
-Confidential Computation
-→ Processes protected inputs
-
-Blockchain
-→ Maintains programmable state and authorised transitions
+Current Instrument State ≠ Assessment State
+        → Review / Revalidation
 ```
 
-The blockchain is not the source of truth for the underlying financial instrument.
+The implementation should also prevent:
 
-The product's objective is to connect institutional authority with programmable infrastructure.
-
----
-
-## 13. Product Boundaries
-
-AssetAmplify is intentionally designed with clear boundaries.
-
-It does not assume that:
-
-* face value equals financing capacity;
-* token ownership equals ownership of the underlying instrument;
-* blockchain verification replaces bank verification;
-* every financial instrument follows the same lifecycle;
-* every verified instrument automatically creates credit;
-* every programmable asset should be freely transferable;
-* cryptocurrency is required for participation;
-* repayment automatically restores original capability;
-* an onchain state change automatically changes the underlying legal instrument.
-
-These boundaries are part of the product design rather than limitations to be hidden.
+* replayed updates;
+* double allocation;
+* double utilisation;
+* unauthorised state changes;
+* invalid lifecycle transitions;
+* use of superseded state without appropriate review.
 
 ---
 
-## 14. Product Evolution
+## 18. Payment Infrastructure
 
-The product architecture is designed to evolve from a single initial instrument toward a broader financial-state infrastructure.
+AssetAmplify does not require the underlying business to replace existing fiat payment infrastructure.
+
+Where a financial obligation exists, applicable payment and repayment mechanisms can continue through authorised banking and payment channels.
+
+Conceptually:
 
 ```text
-Financial State Core
-        ↓
-Instrument-Specific Modules
-        ↓
-Programmable Financial Assets
-        ↓
-Verification / Capability
-        ↓
+Programmable Financial State
+            ↓
+Financial Workflow
+            ↓
+Facility / Obligation
+            ↓
+Existing Fiat Payment Infrastructure
+```
+
+This supports the product's India-first, fiat-native approach.
+
+The business should not have to change how it moves money merely because its financial state is represented through programmable infrastructure.
+
+---
+
+## 19. Architecture Principle
+
+The architecture can be summarised as:
+
+```text
+Institutional Financial Reality
+            ↓
+      Bank Authentication
+            ↓
+       Financial State
+            ↓
+     State Versioning
+            ↓
+    Solana Programmable State
+            ↓
+    Controlled Asset Layer
+            ↓
+ Confidential Computation
+            ↓
+Capability / Verification / Workflows
+            ↓
 Facilities / Obligations
-        ↓
+            ↓
 Utilisation / Repayment
-        ↓
-Revalidation
+            ↓
+Continuous Revalidation
 ```
 
-The initial focus is:
+The central architectural principle is:
 
-```text
-Bank Guarantee
-```
+> **Connect institutional authority with programmable infrastructure without replacing the institution.**
 
-Potential future modules include:
-
-```text
-Letter of Credit
-Standby Letter of Credit
-Other Eligible Bank-Verified Instruments
-```
-
-Each module will be introduced only where its institutional characteristics, terms and conditions, verification mechanisms and practical availability support a meaningful implementation.
-
----
-
-## 15. Product Principle
-
-AssetAmplify is built around a simple principle:
-
-> **Start with financial credibility businesses already possess. Make its authenticated state more usable.**
-
-The product does not attempt to replace banking infrastructure.
-
-It explores how established financial relationships can gain a programmable digital layer while remaining connected to their institutional source of truth.
-
-**Financial credibility → authenticated state → programmable utility.**
+AssetAmplify therefore treats blockchain not as a replacement for financial infrastructure, but as a programmable layer around authenticated financial state.
 
 ```
 
-This gives us a solid canonical product definition. The next document, `architecture.md`, can then focus strictly on **system components, data flow, authority boundaries, Solana, Arcium, APIs, state transitions and reconciliation**, without repeatedly redefining the product.
+This gives us a solid technical architecture without pretending that components such as the Solana program, Arcium integration, or bank APIs are already implemented. As we actually build them, we can update this document and record the changes in `CHANGELOG.md`.
 ```
-
 
