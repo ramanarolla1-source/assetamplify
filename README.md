@@ -2,6 +2,13 @@
 
 ### Make Existing Financial Credibility More Usable — Onchain.
 
+Demo Video: https://youtu.be/_BhlEg2xB7E
+
+Product Overview: https://docs.google.com/document/d/1dxJChdMHK-01TFt39NKk4K9PQdarhPLfrfzaukMMBwo/edit?usp=sharing
+
+PPT Deck: https://docs.google.com/presentation/d/1esgqNr3ROjB1YSlU6uEqsToTJtD8kTlyZ-3C6LHlvYQ/edit?usp=sharing
+
+
 AssetAmplify is financial infrastructure for making existing, authenticated business financial credibility more usable onchain.
 
 Businesses already possess financial instruments such as **Bank Guarantees (BGs)** and **Letters of Credit (LCs)** issued through established financial institutions. These instruments represent real financial commitments, but their usefulness is largely confined to the systems and workflows in which they originate.
