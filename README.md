@@ -1,3 +1,6 @@
+<img width="1672" height="941" alt="AssetAmplify" src="https://github.com/user-attachments/assets/deb85fef-992f-4873-aeef-0184a388d4eb" />
+
+
 # AssetAmplify
 
 ### Make Existing Financial Credibility More Usable — Onchain.
