@@ -371,10 +371,14 @@ Programmable         Private Inputs
 
 Representation            ↓
                        Arcium
-                 Confidential Computation                
-                          ↓                      
-                  Capability Result                
-                          ↓                      
+                 Confidential Computation 
+                 
+                          ↓   
+                          
+                  Capability Result 
+                  
+                          ↓   
+                          
                Solana Financial State
 
 `
