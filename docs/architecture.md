@@ -19,7 +19,7 @@ The high-level architecture is:
                        │
                        ▼
 ┌─────────────────────────────────────────────┐
-│       Bank Authentication / API Layer       │
+│   Institutional Integration / API Layer     │
 │                                             │
 │  Authorised status, lifecycle and updates   │
 └──────────────────────┬──────────────────────┘
