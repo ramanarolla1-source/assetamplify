@@ -204,6 +204,10 @@ AssetAmplify
      
 Programmable Onchain Representation
 
+A Bank Guarantee does not necessarily remain in the same state after issuance. It may be amended, reduced, extended, invoked, cancelled or otherwise updated during its lifecycle.
+
+AssetAmplify therefore treats financial state as versioned rather than static. An institutional update can produce a new state version, preserving provenance and triggering appropriate revalidation of dependent financial utility.
+
 
 A Bank Guarantee may be:
 
