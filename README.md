@@ -368,6 +368,7 @@ Institutional Financial Infrastructure
       ┌─────────┴─────────┐      
       ↓                   ↓   
 Programmable         Private Inputs
+
 Representation            ↓
                        Arcium
                  Confidential Computation                
