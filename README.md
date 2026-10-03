@@ -366,22 +366,21 @@ Institutional Financial Infrastructure
        
                 ↓
                 
-      ┌─────────┴─────────┐
-      
-      ↓                    ↓      
+      ┌─────────┴─────────┐      
+      ↓                   ↓      
 Programmable         Private Inputs
 Representation              ↓
 
                        Arcium
                  Confidential Computation
                 
-                      ↓
+                          ↓
                       
-                Capability Result
+                  Capability Result
                 
-                      ↓
+                          ↓
                       
-             Solana Financial State
+               Solana Financial State
 
 `
 In simple terms:
