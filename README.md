@@ -14,6 +14,8 @@ PPT Deck: https://docs.google.com/presentation/d/1esgqNr3ROjB1YSlU6uEqsToTJtD8kT
 
 AssetAmplify is financial infrastructure for making existing, authenticated business financial credibility more usable onchain.
 
+We do not need to digitise the financial instrument again. We need to connect authenticated institutional financial state to programmable infrastructure.
+
 Businesses already possess financial instruments such as **Bank Guarantees (BGs)** and **Letters of Credit (LCs)** issued through established financial institutions. These instruments represent real financial commitments, but their usefulness is largely confined to the systems and workflows in which they originate.
 
 AssetAmplify explores a different model:
