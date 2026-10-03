@@ -1,20 +1,37 @@
 Issuing Bank
+
      │
+     
      │ Authorised API
+     
      ▼
+     
 AssetAmplify Integration Layer
+
      │
+     
      ├── Authenticate response
+     
      ├── Validate schema
+     
      ├── Identify instrument
+     
      ├── Read lifecycle status
+     
      ├── Compare state version
+     
      └── Record provenance
+     
      │
+     
      ▼
+     
 Financial State
+
      │
+     
      ▼
+     
 Solana Financial State
 
 {
