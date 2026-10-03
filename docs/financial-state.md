@@ -280,6 +280,8 @@ It cannot independently establish the legal truth of the underlying bank instrum
 
 Financial State is designed to accommodate authorised lifecycle updates.
 
+Existing institutional e-BG infrastructure demonstrates that lifecycle information can already be communicated and updated through authorised API-based channels. NeSL's published e-BG materials provide a useful reference for this model: issuing-bank-controlled information can be updated through secure API infrastructure. AssetAmplify does not assume integration with NeSL; rather, this demonstrates how authenticated institutional information can serve as an input to the Financial State layer.
+
 An institutional update may indicate:
 
 ```text
@@ -292,7 +294,8 @@ New Institutional State
 Authentication
      ↓
 New Financial State Version
-```
+
+An institutional update may indicate:
 
 Potential update categories for a BG include:
 
@@ -533,7 +536,7 @@ Event Detected
      ↓
 Read Current State
      ↓
-Check Institutional Source
+Query / Check Authorised Institutional Source
      ↓
 Compare
      ↓
@@ -576,7 +579,7 @@ Assessment
 Financial Workflow
 ```
 
-Provenance supports auditability and traceability.
+Provenance supports auditability and traceability. Where an authorised API or institutional channel is used, the provenance record should retain an appropriate reference to that source or verification event without exposing unnecessary confidential information.
 
 It does not establish ownership.
 
