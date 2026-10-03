@@ -477,12 +477,15 @@ the first financial instrument module.
 
 BG provides the initial use case through which AssetAmplify explores:
 
+
 - bank-authenticated financial state;
 - lifecycle-aware state representation;
 - programmable financial assets;
 - capability assessment;
 - authorised financial and business workflows;
 - state changes and revalidation.
+
+- The initial research also examined how existing institutional infrastructure communicates Bank Guarantee lifecycle information. NeSL's e-BG infrastructure demonstrates that issuing-bank-controlled BG information can be communicated and updated through secure API-based channels. This led AssetAmplify to treat the institutional API or authorised channel as an important connection between the underlying financial instrument and its Financial State representation.
 
 The architecture is intentionally designed to extend beyond Bank Guarantees.
 **Letters of Credit (LCs), Standby Letters of Credit (SBLCs), and potentially
@@ -536,6 +539,8 @@ Utilisation / Repayment
         ↓
 Revalidation
 ```
+
+The underlying connection to institutional financial infrastructure is equally important. Where authorised API or institutional channels are available, AssetAmplify can use authenticated financial information as an input to its Financial State layer while preserving the issuing institution as the source of truth.
 
 This can create a reusable infrastructure layer connecting verified financial state with authorised financial and commercial workflows.
 
