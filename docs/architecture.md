@@ -21,7 +21,8 @@ The high-level architecture is:
 ┌─────────────────────────────────────────────┐
 │   Institutional Integration / API Layer     │
 │                                             │
-│  Authorised status, lifecycle and updates   │
+│   Authorised institutional data,
+   authentication, lifecycle and updates
 └──────────────────────┬──────────────────────┘
                        │
                        ▼
