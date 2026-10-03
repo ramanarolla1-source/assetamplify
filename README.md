@@ -98,6 +98,20 @@ For a Bank Guarantee, this can include information such as:
 
 The important characteristic is that Financial State is **dynamic and versioned**.
 
+Institutional API connection
+
+Financial State is designed to receive authenticated information from authorised institutional channels, such as bank or e-BG API infrastructure, rather than treating the original instrument as a static document or one-time tokenization event.
+
+Issuing Bank
+     ↓
+Authorised API / Institutional Channel
+     ↓
+Authenticated Financial State
+     ↓
+AssetAmplify
+     ↓
+Programmable Onchain Representation
+
 For example:
 
 ```text
