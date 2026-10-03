@@ -237,6 +237,23 @@ When the underlying financial state materially changes, the system can:
 4. determine whether dependent capability or facilities require review;
 5. initiate revalidation.
 
+   BG V1
+   
+₹100 Cr — ACTIVE
+
+      ↓
+      
+Institutional update
+
+      ↓
+      
+BG V2
+
+₹70 Cr — ACTIVE
+
+      ↓
+Revalidation
+
 This creates a distinction between:
 
 **representation** and **state awareness**.
