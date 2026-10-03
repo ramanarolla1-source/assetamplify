@@ -32,6 +32,8 @@ We are not creating financial value from nothing. We are making existing, verifi
 
 A business may have substantial financial credibility represented through bank-issued instruments, but that credibility is not easily usable across different digital financial and commercial workflows.
 
+Existing institutional infrastructure is already becoming API-driven. For example, NeSL's e-BG infrastructure supports secure API-based communication of Bank Guarantee lifecycle information and updates from the issuing bank. The opportunity is therefore not simply to digitise a Bank Guarantee again, but to connect authenticated institutional state with programmable financial infrastructure.
+
 A Bank Guarantee, for example, has an institutional lifecycle. It can be issued, amended, reduced, extended, invoked, claimed, cancelled or expire. The underlying state can therefore change over time.
 
 A static digital representation does not adequately capture this dynamic relationship.
