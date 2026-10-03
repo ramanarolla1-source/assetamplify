@@ -344,22 +344,29 @@ AssetAmplify therefore explores **Arcium** for confidential computation.
 
 The trust model is:
 
-```text
-Bank Attestation
-      ↓
-Current Financial State
+Institutional Financial Infrastructure
+                ↓
+       Authorised API / Channel
+                ↓
+       Bank-authenticated State
+                ↓
+         AssetAmplify
+        Financial State
+                ↓
+       Solana State Layer
+                ↓
+      ┌─────────┴─────────┐
+      ↓                   ↓
+Programmable        Private Inputs
+Representation             ↓
+                      Arcium
+                Confidential Computation
+                      ↓
+                Capability Result
+                      ↓
+             Solana Financial State
 
-Private Inputs
-      ↓
-Arcium Confidential Computation
-      ↓
-Capability Result
-
-Solana
-      ↓
-Programmable Financial State
-```
-
+`
 In simple terms:
 
 > **Verify more, disclose less.**
