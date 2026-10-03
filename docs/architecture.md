@@ -378,6 +378,8 @@ Therefore, the architecture does not assume that every bank provides identical A
 
 Where a recognised institutional e-BG or API infrastructure provides authorised lifecycle information, AssetAmplify can use that type of information as an integration model.
 
+NeSL's e-BG infrastructure provided an important research reference for this architecture. Its published materials demonstrate how issuing-bank-controlled e-BG lifecycle information can be communicated and updated through secure API-based infrastructure. AssetAmplify does not assume integration with NeSL; rather, this demonstrates that the institutional-to-programmable connection can be designed around existing authorised financial data channels instead of recreating the underlying instrument onchain.
+
 The bank remains authoritative.
 
 ---
@@ -554,6 +556,10 @@ Read current state
   ↓
 Compare with institutional source
   ↓
+  ↓
+Retrieve / confirm authorised institutional state
+        ↓
+Validate
 Validate
   ↓
 Update / reconcile
