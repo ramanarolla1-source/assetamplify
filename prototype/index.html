@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101d2c">
+  <meta name="description" content="AssetAmplify interactive Bank Guarantee financial-state lifecycle demo.">
+  <title>AssetAmplify | Financial State Demo</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="AssetAmplify home">
+      <span class="brand-mark">A</span>
+      <span>AssetAmplify<small>FINANCIAL STATE INFRASTRUCTURE</small></span>
+    </a>
+    <span class="demo-pill"><span class="pulse"></span> INTERACTIVE DEMO</span>
+  </header>
+
+  <main class="shell">
+    <section class="intro">
+      <div class="eyebrow">BANK GUARANTEE · LIFECYCLE MONITOR</div>
+      <h1>Financial state that<br><span>stays connected to reality.</span></h1>
+      <p>Simulate an authorised institutional amendment, compare financial-state versions, and see why dependent capability must be revalidated.</p>
+      <div class="notice"><span class="notice-icon">i</span><span><strong>Simulation only.</strong> Example data and a mock institutional response are used. No live bank, NeSL, lender, or Solana connection is active.</span></div>
+    </section>
+
+    <section class="section-heading">
+      <div><div class="eyebrow">01 / CURRENT INSTRUMENT</div><h2>Bank Guarantee overview</h2></div>
+      <span class="status-chip" id="instrument-status"><span></span> ACTIVE</span>
+    </section>
+
+    <section class="summary-grid">
+      <article class="panel instrument-panel">
+        <div class="panel-top"><span class="label">INSTRUMENT ID</span><span class="tag">BG</span></div>
+        <div class="instrument-id" id="instrument-id">AA-DEMO-BG-001</div>
+        <div class="institution">Example Bank Ltd. <span>· Issuing institution (demo)</span></div>
+        <div class="divider"></div>
+        <div class="details-grid">
+          <div><span class="label">APPLICANT</span><strong>Example Infrastructure Pvt. Ltd.</strong></div>
+          <div><span class="label">BENEFICIARY</span><strong>Example Projects Ltd.</strong></div>
+          <div><span class="label">ISSUE DATE</span><strong>15 Jan 2026</strong></div>
+          <div><span class="label">EXPIRY DATE</span><strong>14 Jan 2027</strong></div>
+        </div>
+      </article>
+      <article class="panel amount-panel">
+        <div class="panel-top"><span class="label">CURRENT GUARANTEE AMOUNT</span><span class="version-tag" id="version-tag">VERSION 1</span></div>
+        <div class="amount" id="current-amount">₹10.00 <small>Cr</small></div>
+        <div class="amount-foot"><span class="dot-green"></span><span id="current-status-text">Active financial state</span></div>
+        <div class="mini-metrics">
+          <div><span class="label">STATE VERSION</span><strong id="version-number">V1</strong></div>
+          <div><span class="label">AUTH SOURCE</span><strong>Mock API</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-heading section-spaced">
+      <div><div class="eyebrow">02 / INSTITUTIONAL EVENT</div><h2>Simulate a bank amendment</h2></div>
+      <span class="muted-small">No external request is made</span>
+    </section>
+
+    <section class="panel event-panel">
+      <div class="event-copy">
+        <div class="event-icon">↻</div>
+        <div><h3>Guarantee amount reduced</h3><p>The mock institutional source reports a reduction from ₹10 Cr to ₹7 Cr while the guarantee remains active.</p></div>
+      </div>
+      <div class="event-data">
+        <div><span class="label">PREVIOUS AMOUNT</span><strong>₹10.00 Cr</strong></div>
+        <div class="arrow">→</div>
+        <div><span class="label">AMENDED AMOUNT</span><strong>₹7.00 Cr</strong></div>
+      </div>
+      <div class="event-actions">
+        <button id="amend-button" class="primary-button">Simulate Bank Amendment <span>→</span></button>
+        <button id="reset-button" class="secondary-button" hidden>Reset demo</button>
+      </div>
+      <p class="action-feedback" id="action-feedback" aria-live="polite">Ready to receive a simulated institutional update.</p>
+    </section>
+
+    <section class="section-heading section-spaced">
+      <div><div class="eyebrow">03 / STATE COMPARISON</div><h2>Version history & provenance</h2></div>
+      <span class="muted-small" id="version-count">1 recorded version</span>
+    </section>
+
+    <section class="version-grid" id="version-grid">
+      <article class="version-card current-version">
+        <div class="version-head"><span class="version-tag">V1 · ORIGINAL</span><span class="small-state">CURRENT</span></div>
+        <div class="version-amount">₹10.00 Cr</div>
+        <div class="version-state">ACTIVE</div>
+        <p>Initial example state</p>
+        <div class="version-meta"><span>Event</span><strong>ISSUED</strong></div>
+        <div class="version-meta"><span>Previous version</span><strong>None</strong></div>
+      </article>
+    </section>
+
+    <section class="section-heading section-spaced">
+      <div><div class="eyebrow">04 / DEPENDENT UTILITY</div><h2>Capability revalidation</h2></div>
+    </section>
+
+    <section class="panel revalidation-panel" id="revalidation-panel">
+      <div class="revalidation-icon" id="revalidation-icon">✓</div>
+      <div class="revalidation-content">
+        <div class="revalidation-title-row"><h3 id="revalidation-title">No material change detected</h3><span class="review-chip" id="review-chip">NOT TRIGGERED</span></div>
+        <p id="revalidation-copy">No dependent capability review has been triggered in this session. A financial-state amount is not itself a credit approval or facility.</p>
+        <div class="rule-line"><span>Control rule</span><strong>Material state change → review dependent capability</strong></div>
+      </div>
+    </section>
+
+    <section class="section-heading section-spaced">
+      <div><div class="eyebrow">05 / EVENT LOG</div><h2>Audit trail</h2></div>
+      <span class="muted-small">Session-local demonstration</span>
+    </section>
+    <section class="panel log-panel"><ol id="event-log" class="event-log"><li><span class="log-marker"></span><div><strong>Initial state loaded</strong><p>Mock Financial State V1 · ₹10 Cr · ACTIVE</p><time>Demo start</time></div></li></ol></section>
+
+    <footer><span>ASSETAMPLIFY</span><span>Bank-verified by design · Simulated for demonstration</span><a href="https://github.com/ramanarolla1-source/assetamplify">View repository ↗</a></footer>
+  </main>
+</body>
+</html>
